@@ -31,9 +31,9 @@ public class ChangeScreen {
              Splash.lblLoadingSplash.setText(i+"%");
             //Inceasing the progressBar
              Splash.progressBar.setValue(i);
-            if(i==100){               
-                Splash.visibilityLogins();
-                
+            if(i==100){          
+                //Calling VisibilityLogins() method of SplashScreen on reaching 100
+                Splash.visibilityLogins();              
             }
         }
     }catch(Exception e){

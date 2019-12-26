@@ -206,6 +206,12 @@ public class AirTicket extends javax.swing.JFrame {
         agelbl.setText("Age");
         jPanel3.add(agelbl);
         agelbl.setBounds(35, 140, 60, 20);
+
+        phoneTxtField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                phoneTxtFieldKeyTyped(evt);
+            }
+        });
         jPanel3.add(phoneTxtField);
         phoneTxtField.setBounds(185, 220, 140, 20);
 
@@ -233,6 +239,12 @@ public class AirTicket extends javax.swing.JFrame {
         contactlbl.setBounds(35, 220, 70, 20);
         jPanel3.add(phonePinTxtField);
         phonePinTxtField.setBounds(135, 220, 40, 20);
+
+        ageTxtField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                ageTxtFieldKeyTyped(evt);
+            }
+        });
         jPanel3.add(ageTxtField);
         ageTxtField.setBounds(135, 140, 190, 20);
 
@@ -470,12 +482,32 @@ public class AirTicket extends javax.swing.JFrame {
            departureTxtField.getText().equals("") || seatTxtField.getText().equals("") || priceTxtField.getText().equals("")|| genderBtnGroup.getSelection()==null ||
            tripBtnGroup.getSelection()==null || classBtnGroup.getSelection()==null ){
             JOptionPane.showMessageDialog(rootPane, "Empty Fields or Radio Buttons", "Error", JOptionPane.ERROR_MESSAGE);
+        }else if(phoneTxtField.getText().length()!=10){//Checks Length of Phone Number 
+            JOptionPane.showMessageDialog(rootPane, "Phone number must be 10 digits", "Error", JOptionPane.ERROR_MESSAGE);            
+        }else if(fromComboBox.getSelectedIndex()==0||toComboBox.getSelectedIndex()==0){//Checks selection of combo boxes
+            JOptionPane.showMessageDialog(rootPane, "From OR To not Selected", "Error", JOptionPane.ERROR_MESSAGE);            
         }else{
-            
             
         }
         
     }//GEN-LAST:event_bookBtnActionPerformed
+
+    /*Consumes any letters type in age field
+       And allows only numerals 
+    */
+    private void ageTxtFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ageTxtFieldKeyTyped
+        // TODO add your handling code here:
+        if(Character.isLetter(evt.getKeyChar())){
+            evt.consume();
+        }
+    }//GEN-LAST:event_ageTxtFieldKeyTyped
+
+    private void phoneTxtFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_phoneTxtFieldKeyTyped
+        // TODO add your handling code here:
+            if(Character.isLetter(evt.getKeyChar())){
+                evt.consume();
+        }
+    }//GEN-LAST:event_phoneTxtFieldKeyTyped
 
     /**
      * @param args the command line arguments
