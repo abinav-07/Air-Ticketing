@@ -167,6 +167,8 @@ public class SplashScreen extends javax.swing.JFrame {
         //Checking for empty fields
         if(splashUsernameField.getText().equals("") || splashPasswordField.getText().equals("")){
             JOptionPane.showMessageDialog(rootPane, "Empty Fields","Error" , JOptionPane.ERROR_MESSAGE);            
+        }else if(splashPasswordField.getText().length()<6 || splashPasswordField.getText().length()>=10){
+            JOptionPane.showMessageDialog(rootPane, "Password should be 6-10 characters", "Message", JOptionPane.INFORMATION_MESSAGE);
         }else{          
            username=splashUsernameField.getText();
            password=splashPasswordField.getText();   

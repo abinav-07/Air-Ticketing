@@ -6,6 +6,7 @@
 package AirTicketing;
 
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 
 
@@ -112,29 +113,14 @@ public class AirTicket extends javax.swing.JFrame {
         mainTbl.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         mainTbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Naruto", "+9779841234561", "OneWay", "Ktm-Pkr", "21/12/2019", "Buddha", "Economy", "10 AM",  new Integer(11),  new Double(2000.0)},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null}
+                {"Naruto", "+9779841234561", "OneWay", "Ktm-Pkr", "21/12/2019", "Buddha", "Economy", "10 AM", "NA2A", "1000"}
             },
             new String [] {
                 "Name", "Contact", "Flight Detail", "From - To", "Departure Date", "Airline", "Class", "Time", "Flight Id", "Price"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -319,8 +305,12 @@ public class AirTicket extends javax.swing.JFrame {
         infobtn.setText("Get Informaton");
         jPanel3.add(infobtn);
         infobtn.setBounds(500, 140, 120, 21);
+
+        priceTxtField.setEditable(false);
+        priceTxtField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        priceTxtField.setText("Price will be displayed here.");
         jPanel3.add(priceTxtField);
-        priceTxtField.setBounds(500, 260, 120, 19);
+        priceTxtField.setBounds(500, 260, 160, 30);
 
         pricelbl.setText("Price");
         jPanel3.add(pricelbl);
@@ -467,29 +457,244 @@ public class AirTicket extends javax.swing.JFrame {
     private void bookBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookBtnActionPerformed
         // TODO add your handling code here:
         
-        //Creating Variables to store in our table
-        Boolean empty=false;
-        String name,flightDetail,fromTo,departureDate,airline,flightClass,time;
-        Integer flightId;
-        Double price;
+        //Creating Variables to store texts in our table
         
-        //Getting the table's total number of columns and rows  
-        int colCount=mainTbl.getColumnCount();
-        int rowCount=mainTbl.getRowCount();
+        String name,fromTo,departureDate,airline,from,contact,to;
+        String flightId="";
+        String flightDetail="";
+        String flightClass="";
+        String time="";
+        //Boolean to check duplicate values
+        Boolean duplicate=false;
+        int price=0;    
+        int rowCount = mainTbl.getRowCount();
+        int colCount = mainTbl.getColumnCount();
         
-        //If else to check empty text fields and radio buttons
+        /**
+         * 
+         * 
+         * If else to check empty text fields and radio buttons
+         * 
+         */
         if(nameTxtField.getText().equals("") || ageTxtField.getText().equals("") ||phonePinTxtField.getText().equals("") || phoneTxtField.getText().equals("") ||
-           departureTxtField.getText().equals("") || seatTxtField.getText().equals("") || priceTxtField.getText().equals("")|| genderBtnGroup.getSelection()==null ||
+           departureTxtField.getText().equals("") || seatTxtField.getText().equals("") || genderBtnGroup.getSelection()==null ||
            tripBtnGroup.getSelection()==null || classBtnGroup.getSelection()==null ){
             JOptionPane.showMessageDialog(rootPane, "Empty Fields or Radio Buttons", "Error", JOptionPane.ERROR_MESSAGE);
         }else if(phoneTxtField.getText().length()!=10){//Checks Length of Phone Number 
             JOptionPane.showMessageDialog(rootPane, "Phone number must be 10 digits", "Error", JOptionPane.ERROR_MESSAGE);            
         }else if(fromComboBox.getSelectedIndex()==0||toComboBox.getSelectedIndex()==0){//Checks selection of combo boxes
             JOptionPane.showMessageDialog(rootPane, "From OR To not Selected", "Error", JOptionPane.ERROR_MESSAGE);            
-        }else{
+        }else{   
+                   
+            /**
+             * 
+             * If the validation checks are cleared,
+             * getting the texts from textFields and
+             * storing them in the declared variables
+             * 
+             */
+            name=nameTxtField.getText();
+
+            /**
+             * 
+             * 
+             * String to concatenate phone number and phone pin
+             * 
+             */
+            String phoneConcat=phonePinTxtField.getText()+phoneTxtField.getText();
+            contact=String.valueOf("+"+phoneConcat);
             
+              /**
+               * 
+               * 
+               *  Code to get price of selected flight type
+               * 
+               */
+            if(onewayRadioBtn.isSelected()){
+                 flightDetail = "One Way";
+                 price = price + 400;
+            }else if (wholeTripRadioBtn.isSelected()){
+                 flightDetail = "Whole Trip";    
+                 price = price + 800;
+            }
+            
+             /**
+              * 
+              * 
+              * Code to get departure date and flightId 
+              * 
+              */
+             departureDate = departureTxtField.getText(); 
+             String id = departureDate.substring(0,departureDate.length() - 8);
+
+             /**
+              * 
+              * Setting values of from and to comboBox to declared strings
+              * 
+              */
+             from = (String) fromComboBox.getSelectedItem();
+             to = (String) toComboBox.getSelectedItem();
+             fromTo = from + "-" + to ;
+             
+             /**
+              * 
+              * 
+              * Setting the Price based on User's Destination
+              * 
+              */
+            if((from == "Nepal" && to=="India" )|| (from == "India" && to== "Nepal")){
+                price = price + 500;
+                flightId = "NI"+id;
+            } 
+            else if((from == "Nepal" && to=="China") || (from == "China" && to=="Nepal")){
+                price = price + 600;
+                flightId = "NC"+id;
+            } 
+            else if((from == "Nepal" && to=="Spain") || (from == "Spain" && to=="Nepal")){
+                price = price + 800;
+                flightId = "NS"+id;
+            } 
+            else if((from == "Nepal" && to=="Australia") || (from == "Australia" && to=="Nepal")){
+                price = price + 400;
+                flightId = "NA"+id;
+            } 
+            else if((from == "India" && to=="China") || (from == "China" && to=="India")){
+                price = price + 300;
+                flightId = "IC"+id;
+            } 
+            else if((from == "India" && to=="Spain") || (from == "Spain" && to=="India")){
+                price = price + 900;
+                flightId = "IS"+id;
+            } 
+            else if((from == "India" && to=="Australia") || (from == "Australia" && to=="India")){
+                price = price + 500;
+                flightId = "IA"+id;
+            } 
+            if((from == "China" && to=="Spain") || (from == "Spain" && to=="China")){
+                price = price + 700;
+                flightId = "CS"+id;
+            } 
+            else if((from == "China" && to=="Australia" || from == "Australia" && to=="China")){
+                price = price + 500;
+                flightId = "CA"+id;
+            } 
+            else if((from == "Spain" && to=="Australia" || from == "Australia" && to=="Spain")){
+                price = price + 1000;
+                flightId = "SA"+id;
+            }
+            
+            /** 
+             * 
+             * Code to get price of selected airline
+             * 
+             */
+             airline = (String) airlineComboBox.getSelectedItem();
+         
+             if( airline == "Buddha Airs" ){
+                 price = price + 200;
+                 time = "10:00 A.M";
+                 flightId = flightId + "BA";
+            }else if( airline == "Qatar Airways" ){
+                 price = price + 300;
+                 time = "12:30 P.M";
+                 flightId = flightId + "QA";
+            }else if( airline == "Turkish Airlines" ){
+                 price = price + 400;
+                 time = "03:00 P.M";
+                 flightId = flightId + "TA";
+            }else if( airline == "Nepal Airlines" ){
+                 price = price + 200;
+                time = "05:30 P.M";
+                flightId = flightId + "NA";
+            }else if( airline == "Himalaya Airlines" ){
+                 price = price + 400;
+                time = "08:30 P.M";
+                 flightId = flightId + "HA";
+         }
+               /**
+                * 
+                * 
+                * code to get selected flight class
+                * 
+                */
+            if(firstClassRadioBtn.isSelected()){
+                 flightClass = "First Class ";
+                 price = price + 800;
+            }else if (economyRadioBtn.isSelected()){
+                 flightClass = "Economy";    
+                 price = price + 400;
+            }
+            
+            /**
+             * 
+             * 
+             * Setting the final total price
+             * 
+             */
+            String total=String.valueOf(price);
+            priceTxtField.setText(total);
+            
+            /**
+             * 
+             * 
+             * Checking if the user inserts duplicate data
+             * 
+             */
+            try{
+                for(int i=0;i<rowCount;i++){
+                    if((mainTbl.getValueAt(i, 0).equals(name)) && (mainTbl.getValueAt(i, 1).equals(contact)) && (mainTbl.getValueAt(i, 2).equals(flightDetail))
+                        && (mainTbl.getValueAt(i, 3).equals(fromTo)) && (mainTbl.getValueAt(i, 4).equals(departureDate)) && (mainTbl.getValueAt(i, 5).equals(airline))
+                        && (mainTbl.getValueAt(i, 6).equals(flightClass)) && (mainTbl.getValueAt(i, 7).equals(time)) && (mainTbl.getValueAt(i, 8).equals(flightId))){
+                             
+                             /**
+                              * 
+                              * 
+                              * Sets the Boolean to true if there is any duplicate data.
+                              * The whole data entered should be same!
+                              */
+                             duplicate=true;
+                             JOptionPane.showMessageDialog(rootPane, "Ticket Already Booked", "Message", JOptionPane.INFORMATION_MESSAGE);
+
+                    }           
+                }                
+
+                /**
+                 * 
+                 * 
+                 * Gives Error Message if same destination is selected
+                 * 
+                 */
+                 if(from == to){
+                     JOptionPane.showMessageDialog(rootPane, "Same destination please select another", "Error", JOptionPane.ERROR_MESSAGE);
+                     fromComboBox.setSelectedIndex(0);
+                     toComboBox.setSelectedIndex(0);
+                  }else if(!duplicate) { //Adds to Table if duplicate Boolean is false
+                        String data[] = {name, contact, flightDetail, fromTo, departureDate, airline, flightClass, time, flightId, total};  
+                        //Getting the table's total number of columns and rows  
+                        DefaultTableModel model=(DefaultTableModel) mainTbl.getModel();
+                        model.addRow(new Object[1]);
+                        boolean empty = false;
+                        int nextRow = 0;
+                        String s;
+                         do{
+                            s=(String) mainTbl.getValueAt(nextRow, 0);
+                            if (s!=null && s.length()!=0){
+                            nextRow++;
+                            }
+                            else{
+                                empty = true;
+                            }   
+                         }
+                         while(!empty);                        
+                           
+                            for(int i=0; i<colCount;i++) {
+                                mainTbl.setValueAt(data[i], nextRow, i);
+                            }
+                        }
+            }catch(Exception ex){
+                ex.printStackTrace();
+            }
         }
-        
     }//GEN-LAST:event_bookBtnActionPerformed
 
     /*Consumes any letters type in age field
