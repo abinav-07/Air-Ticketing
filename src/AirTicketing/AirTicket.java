@@ -35,6 +35,19 @@ public class AirTicket extends javax.swing.JFrame {
         initComponents();
         //Setting the Welcome Text using user from SplashScreen
         greetingLbl.setText("Welcome "+userName);
+        
+        
+        bpNamelbl.setVisible(false);
+        bpFromlbl.setVisible(false);
+        bpTolbl.setVisible(false);
+        bpflightidlbl.setVisible(false);
+        bpFlightdetaillbl.setVisible(false);
+        bpAirlinelbl.setVisible(false);
+        bpClasslbl.setVisible(false);
+        bpdepdatelbl.setVisible(false);
+        bptimeseatlbl.setVisible(false);
+        bpseprator.setVisible(false);
+        bpPricelbl.setVisible(false);
     }
 
     /**
@@ -89,6 +102,27 @@ public class AirTicket extends javax.swing.JFrame {
         pricelbl = new javax.swing.JLabel();
         clearBtn = new javax.swing.JButton();
         bookBtn = new javax.swing.JButton();
+        bpNamedsplbl = new javax.swing.JLabel();
+        bpNamelbl = new javax.swing.JLabel();
+        bpFromlbl = new javax.swing.JLabel();
+        bpFrmdpylbl = new javax.swing.JLabel();
+        bpTolbl = new javax.swing.JLabel();
+        bpTodsplbl = new javax.swing.JLabel();
+        bpFlightdetaillbl = new javax.swing.JLabel();
+        bpflightidlbl = new javax.swing.JLabel();
+        bpFligtiddsplbl = new javax.swing.JLabel();
+        bpFlightdetaildsplbl = new javax.swing.JLabel();
+        bpdepdatelbl = new javax.swing.JLabel();
+        bpClasslbl = new javax.swing.JLabel();
+        bpClassdsplbl = new javax.swing.JLabel();
+        bpdepdatedsplbl = new javax.swing.JLabel();
+        bpPricelbl = new javax.swing.JLabel();
+        bpPricedsplbl = new javax.swing.JLabel();
+        bpseprator = new javax.swing.JLabel();
+        bpSeatdsplbl = new javax.swing.JLabel();
+        bptimedsplbl = new javax.swing.JLabel();
+        bptimeseatlbl = new javax.swing.JLabel();
+        bpAirlinelbl = new javax.swing.JLabel();
         ticketlbl = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         hiconlbl = new javax.swing.JLabel();
@@ -108,7 +142,7 @@ public class AirTicket extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        mainTbl.setBackground(new java.awt.Color(51, 255, 204));
+        mainTbl.setBackground(new java.awt.Color(177, 150, 150));
         mainTbl.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 51)));
         mainTbl.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         mainTbl.setModel(new javax.swing.table.DefaultTableModel(
@@ -153,7 +187,7 @@ public class AirTicket extends javax.swing.JFrame {
 
         greetingLbl.setAlignment(java.awt.Label.CENTER);
         greetingLbl.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        greetingLbl.setForeground(new java.awt.Color(0, 255, 204));
+        greetingLbl.setForeground(new java.awt.Color(0, 0, 0));
         greetingLbl.setText("Welcome");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -328,6 +362,92 @@ public class AirTicket extends javax.swing.JFrame {
         });
         jPanel3.add(bookBtn);
         bookBtn.setBounds(500, 300, 70, 21);
+
+        bpNamedsplbl.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jPanel3.add(bpNamedsplbl);
+        bpNamedsplbl.setBounds(810, 110, 210, 30);
+
+        bpNamelbl.setText("Name");
+        jPanel3.add(bpNamelbl);
+        bpNamelbl.setBounds(810, 90, 40, 13);
+
+        bpFromlbl.setText("From");
+        jPanel3.add(bpFromlbl);
+        bpFromlbl.setBounds(810, 150, 40, 13);
+
+        bpFrmdpylbl.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jPanel3.add(bpFrmdpylbl);
+        bpFrmdpylbl.setBounds(810, 170, 90, 30);
+
+        bpTolbl.setText("To");
+        jPanel3.add(bpTolbl);
+        bpTolbl.setBounds(950, 150, 20, 13);
+
+        bpTodsplbl.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jPanel3.add(bpTodsplbl);
+        bpTodsplbl.setBounds(950, 170, 90, 30);
+
+        bpFlightdetaillbl.setText("Flight Detail");
+        jPanel3.add(bpFlightdetaillbl);
+        bpFlightdetaillbl.setBounds(950, 210, 80, 13);
+
+        bpflightidlbl.setText("Flight Id");
+        jPanel3.add(bpflightidlbl);
+        bpflightidlbl.setBounds(810, 210, 60, 13);
+
+        bpFligtiddsplbl.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jPanel3.add(bpFligtiddsplbl);
+        bpFligtiddsplbl.setBounds(810, 230, 80, 30);
+
+        bpFlightdetaildsplbl.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jPanel3.add(bpFlightdetaildsplbl);
+        bpFlightdetaildsplbl.setBounds(950, 230, 110, 30);
+
+        bpdepdatelbl.setText("Departure Date");
+        jPanel3.add(bpdepdatelbl);
+        bpdepdatelbl.setBounds(950, 270, 90, 13);
+
+        bpClasslbl.setText("Class");
+        jPanel3.add(bpClasslbl);
+        bpClasslbl.setBounds(810, 270, 40, 13);
+
+        bpClassdsplbl.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jPanel3.add(bpClassdsplbl);
+        bpClassdsplbl.setBounds(810, 290, 110, 30);
+
+        bpdepdatedsplbl.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jPanel3.add(bpdepdatedsplbl);
+        bpdepdatedsplbl.setBounds(950, 290, 110, 30);
+
+        bpPricelbl.setText("Price");
+        jPanel3.add(bpPricelbl);
+        bpPricelbl.setBounds(990, 330, 40, 13);
+
+        bpPricedsplbl.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jPanel3.add(bpPricedsplbl);
+        bpPricedsplbl.setBounds(990, 350, 60, 20);
+
+        bpseprator.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        bpseprator.setText("/");
+        jPanel3.add(bpseprator);
+        bpseprator.setBounds(910, 350, 10, 22);
+
+        bpSeatdsplbl.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jPanel3.add(bpSeatdsplbl);
+        bpSeatdsplbl.setBounds(920, 350, 40, 30);
+
+        bptimedsplbl.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jPanel3.add(bptimedsplbl);
+        bptimedsplbl.setBounds(810, 350, 100, 30);
+
+        bptimeseatlbl.setText("Time / Seat");
+        jPanel3.add(bptimeseatlbl);
+        bptimeseatlbl.setBounds(810, 330, 70, 13);
+
+        bpAirlinelbl.setFont(new java.awt.Font("Nirmala UI", 1, 20)); // NOI18N
+        bpAirlinelbl.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel3.add(bpAirlinelbl);
+        bpAirlinelbl.setBounds(890, 10, 200, 30);
 
         ticketlbl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/airticket.jpg"))); // NOI18N
         ticketlbl.setLabelFor(ticketlbl);
@@ -690,6 +810,40 @@ public class AirTicket extends javax.swing.JFrame {
                             for(int i=0; i<colCount;i++) {
                                 mainTbl.setValueAt(data[i], nextRow, i);
                             }
+                            String seat = seatTxtField.getText();
+        
+                            bpNamelbl.setVisible(true);        
+                            bpNamedsplbl.setText(name);
+                            
+                            bpAirlinelbl.setVisible(true);
+                            bpAirlinelbl.setText(airline);
+
+                            bpFromlbl.setVisible(true);        
+                            bpFrmdpylbl.setText(from);
+
+                            bpTolbl.setVisible(true);        
+                            bpTodsplbl.setText(to);
+
+                            bpflightidlbl.setVisible(true);        
+                            bpFligtiddsplbl.setText(flightId);
+
+                            bpFlightdetaillbl.setVisible(true); 
+                            bpFlightdetaildsplbl.setText(flightDetail);
+
+                            bpClasslbl.setVisible(true);        
+                            bpClassdsplbl.setText(flightClass);
+
+                            bpdepdatelbl.setVisible(true);        
+                            bpdepdatedsplbl.setText(departureDate);
+
+                            bptimeseatlbl.setVisible(true);        
+                            bptimedsplbl.setText(time);
+
+                            bpseprator.setVisible(true);        
+                            bpSeatdsplbl.setText(seat);
+
+                            bpPricelbl.setVisible(true);
+                            bpPricedsplbl.setText(total);
                         }
             }catch(Exception ex){
                 ex.printStackTrace();
@@ -756,6 +910,27 @@ public class AirTicket extends javax.swing.JFrame {
     private javax.swing.JLabel airlinelbl;
     private javax.swing.JButton availableSeatBtn;
     private javax.swing.JButton bookBtn;
+    private javax.swing.JLabel bpAirlinelbl;
+    private javax.swing.JLabel bpClassdsplbl;
+    private javax.swing.JLabel bpClasslbl;
+    private javax.swing.JLabel bpFlightdetaildsplbl;
+    private javax.swing.JLabel bpFlightdetaillbl;
+    private javax.swing.JLabel bpFligtiddsplbl;
+    private javax.swing.JLabel bpFrmdpylbl;
+    private javax.swing.JLabel bpFromlbl;
+    private javax.swing.JLabel bpNamedsplbl;
+    private javax.swing.JLabel bpNamelbl;
+    private javax.swing.JLabel bpPricedsplbl;
+    private javax.swing.JLabel bpPricelbl;
+    private javax.swing.JLabel bpSeatdsplbl;
+    private javax.swing.JLabel bpTodsplbl;
+    private javax.swing.JLabel bpTolbl;
+    private javax.swing.JLabel bpdepdatedsplbl;
+    private javax.swing.JLabel bpdepdatelbl;
+    private javax.swing.JLabel bpflightidlbl;
+    private javax.swing.JLabel bpseprator;
+    private javax.swing.JLabel bptimedsplbl;
+    private javax.swing.JLabel bptimeseatlbl;
     private java.awt.Button button1;
     private javax.swing.ButtonGroup classBtnGroup;
     private javax.swing.JLabel classlbl;
