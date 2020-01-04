@@ -6,8 +6,10 @@
 package AirTicketing;
 
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JFileChooser;
@@ -135,7 +137,7 @@ public class AirTicket extends javax.swing.JFrame {
         economyRadioBtn = new javax.swing.JRadioButton();
         airlinelbl = new javax.swing.JLabel();
         airlineComboBox = new javax.swing.JComboBox<>();
-        infobtn = new javax.swing.JButton();
+        infoBtn = new javax.swing.JButton();
         priceTxtField = new javax.swing.JTextField();
         pricelbl = new javax.swing.JLabel();
         bookBtn = new javax.swing.JButton();
@@ -496,9 +498,14 @@ public class AirTicket extends javax.swing.JFrame {
         jPanel3.add(airlineComboBox);
         airlineComboBox.setBounds(500, 100, 120, 19);
 
-        infobtn.setText("Get Informaton");
-        jPanel3.add(infobtn);
-        infobtn.setBounds(500, 140, 120, 21);
+        infoBtn.setText("Get Informaton");
+        infoBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                infoBtnActionPerformed(evt);
+            }
+        });
+        jPanel3.add(infoBtn);
+        infoBtn.setBounds(500, 140, 120, 21);
 
         priceTxtField.setEditable(false);
         priceTxtField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -1213,6 +1220,16 @@ public class AirTicket extends javax.swing.JFrame {
       
     }//GEN-LAST:event_helpMenuMouseClicked
 
+    private void infoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_infoBtnActionPerformed
+        // TODO add your handling code here:
+        try{
+            File myFile=new File("src/resources/getInformation.pdf");
+            Desktop.getDesktop().open(myFile);
+        }catch(Exception exp){
+            exp.printStackTrace();
+        }
+    }//GEN-LAST:event_infoBtnActionPerformed
+
     /**
      * 
      * Method to display current time to the user
@@ -1312,7 +1329,7 @@ public class AirTicket extends javax.swing.JFrame {
     private java.awt.Label greetingLbl;
     private javax.swing.JMenu helpMenu;
     public javax.swing.JLabel hiconlbl;
-    private javax.swing.JButton infobtn;
+    private javax.swing.JButton infoBtn;
     private javax.swing.JLabel jLabel1;
     public javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
