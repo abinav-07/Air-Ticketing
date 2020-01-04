@@ -1,0 +1,9 @@
+Abinav,+9779841215132,One Way,Nepal-China,10/10/2000,Buddha Airs,Economy,10:00 A.M,NC10BA,1600
+Abinav,+9779841215131,One Way,Nepal-China,10/10/2000,Buddha Airs,Economy,10:00 A.M,NC10BA,1600
+Abinav,+9779841214232,One Way,Nepal-China,10/10/2000,Buddha Airs,Economy,10:00 A.M,NC10BA,1600
+Abinav,+9889313211232,One Way,Nepal-China,10/10/2000,Buddha Airs,Economy,10:00 A.M,NC10BA,1600
+Naruto,+9772132132552,One Way,India-Nepal,10./10/1000,Buddha Airs,Economy,10:00 A.M,NI10.BA,1500
+Hinata,+9779841221521,One Way,Nepal-India,10/11/2000,Buddha Airs,First Class ,10:00 A.M,NI10BA,1900
+Abinav,+9779841212522,One Way,Nepal-India,10 /10 /1000,Buddha Airs,Economy,10:00 A.M,NI10 /BA,1500
+New,+9779841221421,One Way,Nepal-China, 09/11 /2000,Buddha Airs,First Class ,10:00 A.M,NC 09/BA,2000
+Old,+9779841221421,One Way,Nepal-China, 09/11 /2000,Buddha Airs,First Class ,10:00 A.M,NC 09/BA,2000

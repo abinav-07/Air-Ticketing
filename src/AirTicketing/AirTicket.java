@@ -5,7 +5,16 @@
  */
 package AirTicketing;
 
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -24,8 +33,9 @@ public class AirTicket extends javax.swing.JFrame {
      * Creates new form AirTicket
      */
     public AirTicket() {
-        initComponents();    
-        
+        initComponents();     
+        adminJPanel.setVisible(false);
+        ticketsJPanel.setVisible(false);
     }
     
     //Constructor for Username
@@ -33,10 +43,25 @@ public class AirTicket extends javax.swing.JFrame {
         //Takes the user from SplashScreen
         userName=user;
         initComponents();
-        //Setting the Welcome Text using user from SplashScreen
-        greetingLbl.setText("Welcome "+userName);
-        
-        
+        //visibility false
+        adminJPanel.setVisible(false);
+        ticketsJPanel.setVisible(false);
+        //Setting the Welcome Text's first letter to UpperCase using user from SplashScreen
+        greetingLbl.setText("Welcome "+Character.toUpperCase(userName.charAt(0))+userName.substring(1));
+         //Calls time method and displays current time
+        Timer timer=new Timer(500, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                time();
+            }
+        });
+        timer.start();
+          /**
+         * 
+         * 
+         * Boarding pass variables visibility set to false
+         * 
+         */
         bpNamelbl.setVisible(false);
         bpFromlbl.setVisible(false);
         bpTolbl.setVisible(false);
@@ -48,6 +73,9 @@ public class AirTicket extends javax.swing.JFrame {
         bptimeseatlbl.setVisible(false);
         bpseprator.setVisible(false);
         bpPricelbl.setVisible(false);
+        
+        
+      
     }
 
     /**
@@ -62,13 +90,23 @@ public class AirTicket extends javax.swing.JFrame {
         genderBtnGroup = new javax.swing.ButtonGroup();
         tripBtnGroup = new javax.swing.ButtonGroup();
         classBtnGroup = new javax.swing.ButtonGroup();
-        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        adminLblPnl = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        hiconlbl = new javax.swing.JLabel();
+        exitPnl = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        eiconlbl = new javax.swing.JLabel();
+        ticketsLabelPnl = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        ticonlbl = new javax.swing.JLabel();
+        mainJPanel = new javax.swing.JPanel();
+        ticketsJPanel = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         mainTbl = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
-        searchtxtfld = new javax.swing.JTextField();
-        searchBtn = new javax.swing.JButton();
         greetingLbl = new java.awt.Label();
+        currentTimeLbl = new java.awt.Label();
         jPanel3 = new javax.swing.JPanel();
         namelbl = new javax.swing.JLabel();
         nameTxtField = new javax.swing.JTextField();
@@ -100,7 +138,6 @@ public class AirTicket extends javax.swing.JFrame {
         infobtn = new javax.swing.JButton();
         priceTxtField = new javax.swing.JTextField();
         pricelbl = new javax.swing.JLabel();
-        clearBtn = new javax.swing.JButton();
         bookBtn = new javax.swing.JButton();
         bpNamedsplbl = new javax.swing.JLabel();
         bpNamelbl = new javax.swing.JLabel();
@@ -124,37 +161,160 @@ public class AirTicket extends javax.swing.JFrame {
         bptimeseatlbl = new javax.swing.JLabel();
         bpAirlinelbl = new javax.swing.JLabel();
         ticketlbl = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        hiconlbl = new javax.swing.JLabel();
-        ticonlbl = new javax.swing.JLabel();
-        eiconlbl = new javax.swing.JLabel();
-        button1 = new java.awt.Button();
-        ticketButton = new java.awt.Button();
-        exitBtn = new java.awt.Button();
+        adminJPanel = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        adminTable = new javax.swing.JTable();
+        searchBtn1 = new javax.swing.JButton();
+        searchtxtfld1 = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        clearBtn1 = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        yourSearchLbl = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        filemenu = new javax.swing.JMenu();
+        fileMenu = new javax.swing.JMenu();
         openmi = new javax.swing.JMenuItem();
         jSeparator11 = new javax.swing.JPopupMenu.Separator();
         exitmi = new javax.swing.JMenuItem();
-        helpmenu = new javax.swing.JMenu();
+        helpMenu = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setSize(new java.awt.Dimension(1272, 659));
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBackground(new java.awt.Color(250, 0, 17));
+        jPanel2.setLayout(null);
 
-        mainTbl.setBackground(new java.awt.Color(177, 150, 150));
+        adminLblPnl.setBackground(new java.awt.Color(252, 33, 48));
+        adminLblPnl.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                adminLblPnlMouseClicked(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(240, 240, 240));
+        jLabel2.setText("Admin");
+
+        hiconlbl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/baseline_home_black_18dp.png"))); // NOI18N
+
+        javax.swing.GroupLayout adminLblPnlLayout = new javax.swing.GroupLayout(adminLblPnl);
+        adminLblPnl.setLayout(adminLblPnlLayout);
+        adminLblPnlLayout.setHorizontalGroup(
+            adminLblPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(adminLblPnlLayout.createSequentialGroup()
+                .addGap(9, 9, 9)
+                .addComponent(hiconlbl, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel2)
+                .addContainerGap(49, Short.MAX_VALUE))
+        );
+        adminLblPnlLayout.setVerticalGroup(
+            adminLblPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, adminLblPnlLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(adminLblPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(hiconlbl, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addContainerGap())
+        );
+
+        jPanel2.add(adminLblPnl);
+        adminLblPnl.setBounds(0, 40, 130, 40);
+
+        exitPnl.setBackground(new java.awt.Color(252, 33, 48));
+        exitPnl.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                exitPnlMouseClicked(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Exit");
+
+        eiconlbl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/open-exit-door.png"))); // NOI18N
+
+        javax.swing.GroupLayout exitPnlLayout = new javax.swing.GroupLayout(exitPnl);
+        exitPnl.setLayout(exitPnlLayout);
+        exitPnlLayout.setHorizontalGroup(
+            exitPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(exitPnlLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(eiconlbl)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE)
+                .addGap(17, 17, 17))
+        );
+        exitPnlLayout.setVerticalGroup(
+            exitPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(exitPnlLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(exitPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(exitPnlLayout.createSequentialGroup()
+                        .addGap(0, 4, Short.MAX_VALUE)
+                        .addComponent(eiconlbl)))
+                .addContainerGap())
+        );
+
+        jPanel2.add(exitPnl);
+        exitPnl.setBounds(0, 560, 130, 40);
+
+        ticketsLabelPnl.setBackground(new java.awt.Color(247, 84, 95));
+        ticketsLabelPnl.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ticketsLabelPnlMouseClicked(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Tickets");
+
+        ticonlbl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/airplane-flight-ticket.png"))); // NOI18N
+
+        javax.swing.GroupLayout ticketsLabelPnlLayout = new javax.swing.GroupLayout(ticketsLabelPnl);
+        ticketsLabelPnl.setLayout(ticketsLabelPnlLayout);
+        ticketsLabelPnlLayout.setHorizontalGroup(
+            ticketsLabelPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ticketsLabelPnlLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(ticonlbl, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(9, 9, 9)
+                .addComponent(jLabel3)
+                .addContainerGap(47, Short.MAX_VALUE))
+        );
+        ticketsLabelPnlLayout.setVerticalGroup(
+            ticketsLabelPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ticketsLabelPnlLayout.createSequentialGroup()
+                .addContainerGap(13, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ticketsLabelPnlLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(ticonlbl, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel2.add(ticketsLabelPnl);
+        ticketsLabelPnl.setBounds(0, 80, 130, 40);
+
+        mainJPanel.setBackground(new java.awt.Color(153, 153, 255));
+        mainJPanel.setLayout(new java.awt.CardLayout());
+
+        ticketsJPanel.setBackground(new java.awt.Color(153, 153, 255));
+        ticketsJPanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 0, 0), 2, true));
+
         mainTbl.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 51)));
         mainTbl.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         mainTbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Naruto", "+9779841234561", "OneWay", "Ktm-Pkr", "21/12/2019", "Buddha", "Economy", "10 AM", "NA2A", "1000"}
+
             },
             new String [] {
                 "Name", "Contact", "Flight Detail", "From - To", "Departure Date", "Airline", "Class", "Time", "Flight Id", "Price"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -180,38 +340,36 @@ public class AirTicket extends javax.swing.JFrame {
             mainTbl.getColumnModel().getColumn(9).setResizable(false);
         }
 
-        jPanel5.setBackground(new java.awt.Color(142, 125, 135));
-
-        searchBtn.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        searchBtn.setText("Search");
+        jPanel5.setBackground(new java.awt.Color(51, 51, 255));
 
         greetingLbl.setAlignment(java.awt.Label.CENTER);
-        greetingLbl.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        greetingLbl.setForeground(new java.awt.Color(0, 0, 0));
+        greetingLbl.setFont(new java.awt.Font("Tempus Sans ITC", 0, 24)); // NOI18N
+        greetingLbl.setForeground(new java.awt.Color(255, 255, 255));
         greetingLbl.setText("Welcome");
+
+        currentTimeLbl.setAlignment(java.awt.Label.CENTER);
+        currentTimeLbl.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        currentTimeLbl.setForeground(new java.awt.Color(255, 255, 255));
+        currentTimeLbl.setText("Time");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addGap(277, 277, 277)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(239, 239, 239)
                 .addComponent(greetingLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(searchtxtfld, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(searchBtn)
-                .addGap(48, 48, 48))
+                .addComponent(currentTimeLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(68, 68, 68))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(searchtxtfld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(searchBtn))
-                    .addComponent(greetingLbl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(greetingLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(currentTimeLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -271,6 +429,8 @@ public class AirTicket extends javax.swing.JFrame {
         depdatelbl.setText("Departure Date");
         jPanel3.add(depdatelbl);
         depdatelbl.setBounds(35, 260, 90, 20);
+
+        departureTxtField.setText(" / /");
         jPanel3.add(departureTxtField);
         departureTxtField.setBounds(135, 260, 190, 20);
 
@@ -350,10 +510,6 @@ public class AirTicket extends javax.swing.JFrame {
         jPanel3.add(pricelbl);
         pricelbl.setBounds(400, 260, 40, 13);
 
-        clearBtn.setText("Clear");
-        jPanel3.add(clearBtn);
-        clearBtn.setBounds(580, 300, 70, 21);
-
         bookBtn.setText("Book");
         bookBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -361,63 +517,63 @@ public class AirTicket extends javax.swing.JFrame {
             }
         });
         jPanel3.add(bookBtn);
-        bookBtn.setBounds(500, 300, 70, 21);
+        bookBtn.setBounds(540, 310, 70, 21);
 
         bpNamedsplbl.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jPanel3.add(bpNamedsplbl);
-        bpNamedsplbl.setBounds(810, 110, 210, 30);
+        bpNamedsplbl.setBounds(820, 110, 210, 30);
 
         bpNamelbl.setText("Name");
         jPanel3.add(bpNamelbl);
-        bpNamelbl.setBounds(810, 90, 40, 13);
+        bpNamelbl.setBounds(820, 90, 40, 13);
 
         bpFromlbl.setText("From");
         jPanel3.add(bpFromlbl);
-        bpFromlbl.setBounds(810, 150, 40, 13);
+        bpFromlbl.setBounds(820, 150, 40, 13);
 
         bpFrmdpylbl.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jPanel3.add(bpFrmdpylbl);
-        bpFrmdpylbl.setBounds(810, 170, 90, 30);
+        bpFrmdpylbl.setBounds(820, 170, 100, 30);
 
         bpTolbl.setText("To");
         jPanel3.add(bpTolbl);
-        bpTolbl.setBounds(950, 150, 20, 13);
+        bpTolbl.setBounds(960, 150, 20, 13);
 
         bpTodsplbl.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jPanel3.add(bpTodsplbl);
-        bpTodsplbl.setBounds(950, 170, 90, 30);
+        bpTodsplbl.setBounds(960, 170, 100, 30);
 
         bpFlightdetaillbl.setText("Flight Detail");
         jPanel3.add(bpFlightdetaillbl);
-        bpFlightdetaillbl.setBounds(950, 210, 80, 13);
+        bpFlightdetaillbl.setBounds(960, 210, 80, 13);
 
         bpflightidlbl.setText("Flight Id");
         jPanel3.add(bpflightidlbl);
-        bpflightidlbl.setBounds(810, 210, 60, 13);
+        bpflightidlbl.setBounds(820, 210, 60, 13);
 
         bpFligtiddsplbl.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jPanel3.add(bpFligtiddsplbl);
-        bpFligtiddsplbl.setBounds(810, 230, 80, 30);
+        bpFligtiddsplbl.setBounds(820, 230, 100, 30);
 
         bpFlightdetaildsplbl.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jPanel3.add(bpFlightdetaildsplbl);
-        bpFlightdetaildsplbl.setBounds(950, 230, 110, 30);
+        bpFlightdetaildsplbl.setBounds(960, 230, 110, 30);
 
         bpdepdatelbl.setText("Departure Date");
         jPanel3.add(bpdepdatelbl);
-        bpdepdatelbl.setBounds(950, 270, 90, 13);
+        bpdepdatelbl.setBounds(960, 270, 90, 13);
 
         bpClasslbl.setText("Class");
         jPanel3.add(bpClasslbl);
-        bpClasslbl.setBounds(810, 270, 40, 13);
+        bpClasslbl.setBounds(820, 270, 40, 13);
 
         bpClassdsplbl.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jPanel3.add(bpClassdsplbl);
-        bpClassdsplbl.setBounds(810, 290, 110, 30);
+        bpClassdsplbl.setBounds(820, 290, 110, 30);
 
         bpdepdatedsplbl.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jPanel3.add(bpdepdatedsplbl);
-        bpdepdatedsplbl.setBounds(950, 290, 110, 30);
+        bpdepdatedsplbl.setBounds(960, 290, 130, 30);
 
         bpPricelbl.setText("Price");
         jPanel3.add(bpPricelbl);
@@ -425,24 +581,24 @@ public class AirTicket extends javax.swing.JFrame {
 
         bpPricedsplbl.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jPanel3.add(bpPricedsplbl);
-        bpPricedsplbl.setBounds(990, 350, 60, 20);
+        bpPricedsplbl.setBounds(990, 350, 70, 20);
 
         bpseprator.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         bpseprator.setText("/");
         jPanel3.add(bpseprator);
-        bpseprator.setBounds(910, 350, 10, 22);
+        bpseprator.setBounds(920, 350, 10, 22);
 
         bpSeatdsplbl.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jPanel3.add(bpSeatdsplbl);
-        bpSeatdsplbl.setBounds(920, 350, 40, 30);
+        bpSeatdsplbl.setBounds(930, 350, 40, 30);
 
         bptimedsplbl.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jPanel3.add(bptimedsplbl);
-        bptimedsplbl.setBounds(810, 350, 100, 30);
+        bptimedsplbl.setBounds(820, 350, 100, 30);
 
         bptimeseatlbl.setText("Time / Seat");
         jPanel3.add(bptimeseatlbl);
-        bptimeseatlbl.setBounds(810, 330, 70, 13);
+        bptimeseatlbl.setBounds(820, 330, 70, 13);
 
         bpAirlinelbl.setFont(new java.awt.Font("Nirmala UI", 1, 20)); // NOI18N
         bpAirlinelbl.setForeground(new java.awt.Color(255, 255, 255));
@@ -452,76 +608,145 @@ public class AirTicket extends javax.swing.JFrame {
         ticketlbl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/airticket.jpg"))); // NOI18N
         ticketlbl.setLabelFor(ticketlbl);
         jPanel3.add(ticketlbl);
-        ticketlbl.setBounds(-10, 0, 1110, 420);
+        ticketlbl.setBounds(0, 0, 1110, 410);
+
+        javax.swing.GroupLayout ticketsJPanelLayout = new javax.swing.GroupLayout(ticketsJPanel);
+        ticketsJPanel.setLayout(ticketsJPanelLayout);
+        ticketsJPanelLayout.setHorizontalGroup(
+            ticketsJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(ticketsJPanelLayout.createSequentialGroup()
+                .addGroup(ticketsJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, ticketsJPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 1110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(14, Short.MAX_VALUE))
+        );
+        ticketsJPanelLayout.setVerticalGroup(
+            ticketsJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ticketsJPanelLayout.createSequentialGroup()
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        mainJPanel.add(ticketsJPanel, "card2");
+
+        adminJPanel.setBackground(new java.awt.Color(51, 51, 255));
+        adminJPanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 0, 0), 2, true));
+
+        adminTable.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 51), 2));
+        adminTable.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        adminTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Name", "Contact", "Flight Detail", "From - To", "Departure Date", "Airline", "Class", "Time", "Flight Id", "Price"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(adminTable);
+
+        searchBtn1.setBackground(new java.awt.Color(0, 0, 102));
+        searchBtn1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        searchBtn1.setForeground(new java.awt.Color(255, 255, 255));
+        searchBtn1.setText("Search");
+
+        jLabel4.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(240, 240, 240));
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("ADMIN");
+
+        clearBtn1.setBackground(new java.awt.Color(0, 0, 102));
+        clearBtn1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        clearBtn1.setForeground(new java.awt.Color(240, 240, 240));
+        clearBtn1.setText("Clear");
+
+        jPanel1.setBackground(new java.awt.Color(209, 6, 20));
+
+        yourSearchLbl.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        yourSearchLbl.setForeground(new java.awt.Color(255, 255, 255));
+        yourSearchLbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        yourSearchLbl.setText("Your Search");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 1124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(365, 365, 365)
+                .addComponent(yourSearchLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(636, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(yourSearchLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(184, Short.MAX_VALUE))
         );
 
-        jPanel2.setBackground(new java.awt.Color(142, 125, 135));
-        jPanel2.setLayout(null);
+        javax.swing.GroupLayout adminJPanelLayout = new javax.swing.GroupLayout(adminJPanel);
+        adminJPanel.setLayout(adminJPanelLayout);
+        adminJPanelLayout.setHorizontalGroup(
+            adminJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(adminJPanelLayout.createSequentialGroup()
+                .addGroup(adminJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, adminJPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(searchtxtfld1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(searchBtn1))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, adminJPanelLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(clearBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        adminJPanelLayout.setVerticalGroup(
+            adminJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, adminJPanelLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(adminJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(searchtxtfld1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(searchBtn1)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(64, 64, 64)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14)
+                .addComponent(clearBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
-        hiconlbl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/baseline_home_black_18dp.png"))); // NOI18N
-        jPanel2.add(hiconlbl);
-        hiconlbl.setBounds(10, 50, 20, 20);
+        mainJPanel.add(adminJPanel, "card3");
 
-        ticonlbl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/airplane-flight-ticket.png"))); // NOI18N
-        jPanel2.add(ticonlbl);
-        ticonlbl.setBounds(10, 110, 20, 30);
-
-        eiconlbl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/open-exit-door.png"))); // NOI18N
-        jPanel2.add(eiconlbl);
-        eiconlbl.setBounds(10, 710, 20, 30);
-
-        button1.setBackground(new java.awt.Color(142, 125, 135));
-        button1.setFont(new java.awt.Font("Nirmala UI", 1, 18)); // NOI18N
-        button1.setLabel("Home");
-        jPanel2.add(button1);
-        button1.setBounds(30, 50, 60, 30);
-
-        ticketButton.setBackground(new java.awt.Color(142, 125, 135));
-        ticketButton.setFont(new java.awt.Font("Nirmala UI", 1, 18)); // NOI18N
-        ticketButton.setLabel("Tickets");
-        jPanel2.add(ticketButton);
-        ticketButton.setBounds(30, 110, 70, 33);
-
-        exitBtn.setBackground(new java.awt.Color(142, 125, 135));
-        exitBtn.setFont(new java.awt.Font("Nirmala UI", 1, 18)); // NOI18N
-        exitBtn.setLabel("Exit");
-        exitBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                exitBtnActionPerformed(evt);
-            }
-        });
-        jPanel2.add(exitBtn);
-        exitBtn.setBounds(30, 710, 70, 33);
-
-        filemenu.setText("File");
+        fileMenu.setText("File");
 
         openmi.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
         openmi.setText("Open");
-        filemenu.add(openmi);
-        filemenu.add(jSeparator11);
+        openmi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                openmiActionPerformed(evt);
+            }
+        });
+        fileMenu.add(openmi);
+        fileMenu.add(jSeparator11);
 
         exitmi.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
         exitmi.setText("Exit");
@@ -530,12 +755,17 @@ public class AirTicket extends javax.swing.JFrame {
                 exitmiActionPerformed(evt);
             }
         });
-        filemenu.add(exitmi);
+        fileMenu.add(exitmi);
 
-        jMenuBar1.add(filemenu);
+        jMenuBar1.add(fileMenu);
 
-        helpmenu.setText("Help");
-        jMenuBar1.add(helpmenu);
+        helpMenu.setText("Help");
+        helpMenu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                helpMenuMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(helpMenu);
 
         setJMenuBar(jMenuBar1);
 
@@ -543,15 +773,18 @@ public class AirTicket extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(mainJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 778, Short.MAX_VALUE)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(mainJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -567,12 +800,6 @@ public class AirTicket extends javax.swing.JFrame {
     private void maleRadioBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_maleRadioBtnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_maleRadioBtnActionPerformed
-
-    //Action Event for Exit Button 
-    private void exitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitBtnActionPerformed
-        // TODO add your handling code here:
-        System.exit(0);
-    }//GEN-LAST:event_exitBtnActionPerformed
 
     private void bookBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookBtnActionPerformed
         // TODO add your handling code here:
@@ -751,8 +978,8 @@ public class AirTicket extends javax.swing.JFrame {
              * Setting the final total price
              * 
              */
-            String total=String.valueOf(price);
-            priceTxtField.setText(total);
+            int total=price;
+            priceTxtField.setText(Integer.toString(total));
             
             /**
              * 
@@ -789,7 +1016,7 @@ public class AirTicket extends javax.swing.JFrame {
                      fromComboBox.setSelectedIndex(0);
                      toComboBox.setSelectedIndex(0);
                   }else if(!duplicate) { //Adds to Table if duplicate Boolean is false
-                        String data[] = {name, contact, flightDetail, fromTo, departureDate, airline, flightClass, time, flightId, total};  
+                        String data[] = {name, contact, flightDetail, fromTo, departureDate, airline, flightClass, time, flightId, Integer.toString(total)};  
                         //Getting the table's total number of columns and rows  
                         DefaultTableModel model=(DefaultTableModel) mainTbl.getModel();
                         model.addRow(new Object[1]);
@@ -810,6 +1037,22 @@ public class AirTicket extends javax.swing.JFrame {
                             for(int i=0; i<colCount;i++) {
                                 mainTbl.setValueAt(data[i], nextRow, i);
                             }
+                            /**
+                             * 
+                             * 
+                             * Creating a instance of CSVCodes Class and
+                             * Adding the data to the CSV file
+                             * 
+                             */
+                            CSVCodes csvCodes=new CSVCodes();
+                            csvCodes.saveTicket(name, contact, flightDetail, fromTo, departureDate, airline, flightClass, time, flightId, total);
+                           
+                            /**
+                             * 
+                             * 
+                             * Setting boarding pass labels visible after booking
+                             * 
+                             */
                             String seat = seatTxtField.getText();
         
                             bpNamelbl.setVisible(true);        
@@ -843,7 +1086,7 @@ public class AirTicket extends javax.swing.JFrame {
                             bpSeatdsplbl.setText(seat);
 
                             bpPricelbl.setVisible(true);
-                            bpPricedsplbl.setText(total);
+                            bpPricedsplbl.setText(Integer.toString(total));
                         }
             }catch(Exception ex){
                 ex.printStackTrace();
@@ -856,18 +1099,131 @@ public class AirTicket extends javax.swing.JFrame {
     */
     private void ageTxtFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ageTxtFieldKeyTyped
         // TODO add your handling code here:
-        if(Character.isLetter(evt.getKeyChar())){
+        if(!Character.isDigit(evt.getKeyChar())){
             evt.consume();
         }
     }//GEN-LAST:event_ageTxtFieldKeyTyped
 
     private void phoneTxtFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_phoneTxtFieldKeyTyped
         // TODO add your handling code here:
-            if(Character.isLetter(evt.getKeyChar())){
+            if(!Character.isDigit(evt.getKeyChar())){
                 evt.consume();
         }
     }//GEN-LAST:event_phoneTxtFieldKeyTyped
 
+    /**
+     * 
+     * 
+     * Methods to change colors of navigation bar
+     * 
+     */
+    public void setColor(JPanel panel){
+        panel.setBackground(new Color(247,84,95));
+    }
+    public void resetColor(JPanel panel){
+        panel.setBackground(new Color(252,33,48));
+    }
+    
+    private void exitPnlMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitPnlMouseClicked
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_exitPnlMouseClicked
+
+    private void adminLblPnlMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adminLblPnlMouseClicked
+        // TODO add your handling code here:
+     
+        //Checks if the selected panel is adminPanel or Not
+        if(!adminJPanel.isVisible()){
+               /**
+                * 
+                * Creating a new password field for JOption Pane 
+                * And Checking if the password entered is correct for admin tab
+                * 
+                */
+            JPasswordField passwordField=new JPasswordField();
+            int clickedOk=JOptionPane.showConfirmDialog(rootPane, passwordField, "Enter Password", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+            /**
+             * 
+             * When User clicks OK, password should match as 'admin' 
+             * Sets Tickets JPanel Visibility to false and display Admin JPanel if the password matches 
+             * 
+             */        
+            if(clickedOk==JOptionPane.OK_OPTION){
+              if(passwordField.getText().equalsIgnoreCase("admin")){
+                    ticketsJPanel.setVisible(false);
+                    mainJPanel.removeAll();
+                    mainJPanel.revalidate();
+                    mainJPanel.repaint();
+                    mainJPanel.add(adminJPanel);
+                    mainJPanel.revalidate();
+                    mainJPanel.repaint();
+                    setColor(adminLblPnl);
+                    resetColor(ticketsLabelPnl);
+                    resetColor(exitPnl);
+              }else{
+                JOptionPane.showMessageDialog(rootPane, "Only admin knows the password", "Wrong Password", JOptionPane.ERROR_MESSAGE);
+            }
+         }
+        }else{
+            System.out.println("Admin Visible");
+        }
+        
+    
+        
+    }//GEN-LAST:event_adminLblPnlMouseClicked
+
+    private void ticketsLabelPnlMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ticketsLabelPnlMouseClicked
+        // TODO add your handling code here:
+        if(!ticketsJPanel.isVisible()){
+            adminJPanel.setVisible(false);
+            mainJPanel.removeAll();
+            mainJPanel.revalidate();
+            mainJPanel.repaint();
+            mainJPanel.add(ticketsJPanel);
+            mainJPanel.revalidate();
+            mainJPanel.repaint();
+            setColor(ticketsLabelPnl);
+            resetColor(adminLblPnl);
+            resetColor(exitPnl);           
+        }else{            
+             System.out.println("Already Ticket");
+        }
+    }//GEN-LAST:event_ticketsLabelPnlMouseClicked
+
+    //Method for Open Menu Item
+    //Opens the required CSV file
+    private void openmiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openmiActionPerformed
+        // TODO add your handling code here:
+        JFileChooser fileChooser=new JFileChooser();
+        int i=fileChooser.showOpenDialog(AirTicket.this);
+        //If Open button is Clicked
+        if(i==JFileChooser.APPROVE_OPTION){            
+            try{
+                //readCSV method from CSVCodes Class to choose file and populate JTable
+                CSVCodes.readCSV(fileChooser.getSelectedFile(),adminTable);
+            }catch(Exception exp){
+                exp.printStackTrace();
+                JOptionPane.showMessageDialog(rootPane, "File not CSV Format", "ERROR",JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_openmiActionPerformed
+
+    private void helpMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_helpMenuMouseClicked
+        // TODO add your handling code here:
+      
+    }//GEN-LAST:event_helpMenuMouseClicked
+
+    /**
+     * 
+     * Method to display current time to the user
+     * 
+     */
+    public void time(){
+        Date date=new Date();
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("HH:mm:ss");
+        //formats the current date and time according to the given format
+        currentTimeLbl.setText("Current Time: "+simpleDateFormat.format(date));        
+    }
     /**
      * @param args the command line arguments
      */
@@ -904,6 +1260,9 @@ public class AirTicket extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JPanel adminJPanel;
+    public javax.swing.JPanel adminLblPnl;
+    public javax.swing.JTable adminTable;
     private javax.swing.JTextField ageTxtField;
     private javax.swing.JLabel agelbl;
     private javax.swing.JComboBox<String> airlineComboBox;
@@ -931,19 +1290,19 @@ public class AirTicket extends javax.swing.JFrame {
     private javax.swing.JLabel bpseprator;
     private javax.swing.JLabel bptimedsplbl;
     private javax.swing.JLabel bptimeseatlbl;
-    private java.awt.Button button1;
     private javax.swing.ButtonGroup classBtnGroup;
     private javax.swing.JLabel classlbl;
-    private javax.swing.JButton clearBtn;
+    private javax.swing.JButton clearBtn1;
     private javax.swing.JLabel contactlbl;
+    private java.awt.Label currentTimeLbl;
     private javax.swing.JTextField departureTxtField;
     private javax.swing.JLabel depdatelbl;
     private javax.swing.JRadioButton economyRadioBtn;
     private javax.swing.JLabel eiconlbl;
-    private java.awt.Button exitBtn;
+    private javax.swing.JPanel exitPnl;
     private javax.swing.JMenuItem exitmi;
     private javax.swing.JRadioButton femaleRadioBtn;
-    private javax.swing.JMenu filemenu;
+    private javax.swing.JMenu fileMenu;
     private javax.swing.JRadioButton firstClassRadioBtn;
     private javax.swing.JLabel flightlbl;
     private javax.swing.JComboBox<String> fromComboBox;
@@ -951,16 +1310,22 @@ public class AirTicket extends javax.swing.JFrame {
     private javax.swing.ButtonGroup genderBtnGroup;
     private javax.swing.JLabel genderlbl;
     private java.awt.Label greetingLbl;
-    private javax.swing.JMenu helpmenu;
-    private javax.swing.JLabel hiconlbl;
+    private javax.swing.JMenu helpMenu;
+    public javax.swing.JLabel hiconlbl;
     private javax.swing.JButton infobtn;
+    private javax.swing.JLabel jLabel1;
+    public javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JPopupMenu.Separator jSeparator11;
+    public javax.swing.JPanel mainJPanel;
     public javax.swing.JTable mainTbl;
     private javax.swing.JRadioButton maleRadioBtn;
     private javax.swing.JTextField nameTxtField;
@@ -971,16 +1336,18 @@ public class AirTicket extends javax.swing.JFrame {
     private javax.swing.JTextField phoneTxtField;
     private javax.swing.JTextField priceTxtField;
     private javax.swing.JLabel pricelbl;
-    private javax.swing.JButton searchBtn;
-    private javax.swing.JTextField searchtxtfld;
+    private javax.swing.JButton searchBtn1;
+    private javax.swing.JTextField searchtxtfld1;
     private javax.swing.JTextField seatTxtField;
     private javax.swing.JLabel seatlbl;
-    private java.awt.Button ticketButton;
     private javax.swing.JLabel ticketlbl;
+    public javax.swing.JPanel ticketsJPanel;
+    public javax.swing.JPanel ticketsLabelPnl;
     private javax.swing.JLabel ticonlbl;
     private javax.swing.JComboBox<String> toComboBox;
     private javax.swing.JLabel tolbl;
     private javax.swing.ButtonGroup tripBtnGroup;
     private javax.swing.JRadioButton wholeTripRadioBtn;
+    private javax.swing.JLabel yourSearchLbl;
     // End of variables declaration//GEN-END:variables
 }
