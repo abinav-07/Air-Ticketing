@@ -11,15 +11,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.LinkedList;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
-
-
 
 /**
  *
@@ -28,41 +28,40 @@ import javax.swing.table.DefaultTableModel;
 public class AirTicket extends javax.swing.JFrame {
 
     //Declaring Variable to store userName obtained from SplashScreen.class
-    String userName; 
-    
-    
+    String userName;
+
     /**
      * Creates new form AirTicket
      */
     public AirTicket() {
-        initComponents();     
+        initComponents();
         adminJPanel.setVisible(false);
         ticketsJPanel.setVisible(false);
     }
-    
+
     //Constructor for Username
-    public AirTicket(String user){
+    public AirTicket(String user) {
         //Takes the user from SplashScreen
-        userName=user;
+        userName = user;
         initComponents();
         //visibility false
         adminJPanel.setVisible(false);
         ticketsJPanel.setVisible(false);
         //Setting the Welcome Text's first letter to UpperCase using user from SplashScreen
-        greetingLbl.setText("Welcome "+Character.toUpperCase(userName.charAt(0))+userName.substring(1));
-         //Calls time method and displays current time
-        Timer timer=new Timer(500, new ActionListener() {
+        greetingLbl.setText("Welcome " + Character.toUpperCase(userName.charAt(0)) + userName.substring(1));
+        //Calls time method and displays current time
+        Timer timer = new Timer(500, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 time();
             }
         });
         timer.start();
-          /**
-         * 
-         * 
+        /**
+         *
+         *
          * Boarding pass variables visibility set to false
-         * 
+         *
          */
         bpNamelbl.setVisible(false);
         bpFromlbl.setVisible(false);
@@ -75,9 +74,7 @@ public class AirTicket extends javax.swing.JFrame {
         bptimeseatlbl.setVisible(false);
         bpseprator.setVisible(false);
         bpPricelbl.setVisible(false);
-        
-        
-      
+
     }
 
     /**
@@ -167,11 +164,14 @@ public class AirTicket extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         adminTable = new javax.swing.JTable();
         searchBtn1 = new javax.swing.JButton();
-        searchtxtfld1 = new javax.swing.JTextField();
+        searchTxtField = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        clearBtn1 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         yourSearchLbl = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        searchtbl = new javax.swing.JTable();
+        clearBtn1 = new javax.swing.JButton();
+        searchcb = new javax.swing.JComboBox<>();
         jMenuBar1 = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         openmi = new javax.swing.JMenuItem();
@@ -380,6 +380,12 @@ public class AirTicket extends javax.swing.JFrame {
         namelbl.setText("Full Name");
         jPanel3.add(namelbl);
         namelbl.setBounds(35, 100, 70, 20);
+
+        nameTxtField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nameTxtFieldKeyTyped(evt);
+            }
+        });
         jPanel3.add(nameTxtField);
         nameTxtField.setBounds(135, 100, 190, 20);
 
@@ -650,6 +656,57 @@ public class AirTicket extends javax.swing.JFrame {
         adminTable.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         adminTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {"Abinav Ghimire", "+9779841215132", "One Way", "Nepal-China", "10/10/2000", "Buddha Airs", "Economy", "10:00 A.M", "NC10BA", "1600"},
+                {"Satkar Kadel", "+9779841215131", "One Way", "Nepal-China", "10/11/2000", "Qatar Airways", "Economy", "10:00 A.M", "NC10BA", "1500"},
+                {"Sashis Mainali", "+9779841214232", "Whole Trip", "China-India", "09/11/2000", "Turkish Airlines", "First Class", "11:00 A.M", "CI11TA", "2000"},
+                {"Ritick Sharma", "+9779841221421", "One Way", "Nepal-China", "01/01/1988", "Nepal Airlines", "Economy", "01:00 P.M", "NC01NA", "1600"},
+                {"Halal Maharjan", "+9779841221422", "One Way", "China-Nepal", "02/12/1999", "Himalaya Airlines", "First Class", "03:30 A.M", "CN03HA", "2000"}
+            },
+            new String [] {
+                "Name", "Contact", "Flight Detail", "From - To", "Departure Date", "Airline", "Class", "Time", "Flight Id", "Price"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        adminTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane3.setViewportView(adminTable);
+
+        searchBtn1.setBackground(new java.awt.Color(0, 0, 102));
+        searchBtn1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        searchBtn1.setForeground(new java.awt.Color(255, 255, 255));
+        searchBtn1.setText("Search");
+        searchBtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchBtn1ActionPerformed(evt);
+            }
+        });
+
+        searchTxtField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                searchTxtFieldKeyTyped(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(240, 240, 240));
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("ADMIN");
+
+        jPanel1.setBackground(new java.awt.Color(209, 6, 20));
+
+        yourSearchLbl.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        yourSearchLbl.setForeground(new java.awt.Color(255, 255, 255));
+        yourSearchLbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        yourSearchLbl.setText("Your Search");
+
+        searchtbl.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
 
             },
             new String [] {
@@ -659,51 +716,66 @@ public class AirTicket extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, true, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
         });
-        jScrollPane3.setViewportView(adminTable);
-
-        searchBtn1.setBackground(new java.awt.Color(0, 0, 102));
-        searchBtn1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        searchBtn1.setForeground(new java.awt.Color(255, 255, 255));
-        searchBtn1.setText("Search");
-
-        jLabel4.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(240, 240, 240));
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("ADMIN");
+        searchtbl.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(searchtbl);
 
         clearBtn1.setBackground(new java.awt.Color(0, 0, 102));
         clearBtn1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         clearBtn1.setForeground(new java.awt.Color(240, 240, 240));
         clearBtn1.setText("Clear");
-
-        jPanel1.setBackground(new java.awt.Color(209, 6, 20));
-
-        yourSearchLbl.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        yourSearchLbl.setForeground(new java.awt.Color(255, 255, 255));
-        yourSearchLbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        yourSearchLbl.setText("Your Search");
+        clearBtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearBtn1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(365, 365, 365)
+                .addGap(523, 523, 523)
                 .addComponent(yourSearchLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(636, Short.MAX_VALUE))
+                .addContainerGap(478, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(clearBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(yourSearchLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(184, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(clearBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
+
+        searchcb.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Buddha Airs", "Qatar Airways", "Turkish Airlines", "Nepal Airlines", "Himalaya Airlines" }));
+        searchcb.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchcbActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout adminJPanelLayout = new javax.swing.GroupLayout(adminJPanel);
         adminJPanel.setLayout(adminJPanelLayout);
@@ -716,13 +788,12 @@ public class AirTicket extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(searchtxtfld1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(searchcb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(55, 55, 55)
+                        .addComponent(searchTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(searchBtn1))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, adminJPanelLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(clearBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         adminJPanelLayout.setVerticalGroup(
@@ -730,14 +801,13 @@ public class AirTicket extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, adminJPanelLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(adminJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(searchtxtfld1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(searchTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(searchBtn1)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(searchcb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(64, 64, 64)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14)
-                .addComponent(clearBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(45, 45, 45)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -810,292 +880,282 @@ public class AirTicket extends javax.swing.JFrame {
 
     private void bookBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookBtnActionPerformed
         // TODO add your handling code here:
-        
+
         //Creating Variables to store texts in our table
-        
-        String name,fromTo,departureDate,airline,from,contact,to;
-        String flightId="";
-        String flightDetail="";
-        String flightClass="";
-        String time="";
+        String name, fromTo, departureDate, airline, from, contact, to;
+        String flightId = "";
+        String flightDetail = "";
+        String flightClass = "";
+        String time = "";
         //Boolean to check duplicate values
-        Boolean duplicate=false;
-        int price=0;    
+        Boolean duplicate = false;
+        int price = 0;
         int rowCount = mainTbl.getRowCount();
         int colCount = mainTbl.getColumnCount();
-        
+
         /**
-         * 
-         * 
+         *
+         *
          * If else to check empty text fields and radio buttons
-         * 
+         *
          */
-        if(nameTxtField.getText().equals("") || ageTxtField.getText().equals("") ||phonePinTxtField.getText().equals("") || phoneTxtField.getText().equals("") ||
-           departureTxtField.getText().equals("") || seatTxtField.getText().equals("") || genderBtnGroup.getSelection()==null ||
-           tripBtnGroup.getSelection()==null || classBtnGroup.getSelection()==null ){
+        if (nameTxtField.getText().equals("") || ageTxtField.getText().equals("") || phonePinTxtField.getText().equals("") || phoneTxtField.getText().equals("")
+                || departureTxtField.getText().equals("") || seatTxtField.getText().equals("") || genderBtnGroup.getSelection() == null
+                || tripBtnGroup.getSelection() == null || classBtnGroup.getSelection() == null) {
             JOptionPane.showMessageDialog(rootPane, "Empty Fields or Radio Buttons", "Error", JOptionPane.ERROR_MESSAGE);
-        }else if(phoneTxtField.getText().length()!=10){//Checks Length of Phone Number 
-            JOptionPane.showMessageDialog(rootPane, "Phone number must be 10 digits", "Error", JOptionPane.ERROR_MESSAGE);            
-        }else if(fromComboBox.getSelectedIndex()==0||toComboBox.getSelectedIndex()==0){//Checks selection of combo boxes
-            JOptionPane.showMessageDialog(rootPane, "From OR To not Selected", "Error", JOptionPane.ERROR_MESSAGE);            
-        }else{   
-                   
-            /**
-             * 
-             * If the validation checks are cleared,
-             * getting the texts from textFields and
-             * storing them in the declared variables
-             * 
-             */
-            name=nameTxtField.getText();
+        } else if (phoneTxtField.getText().length() != 10) {//Checks Length of Phone Number 
+            JOptionPane.showMessageDialog(rootPane, "Phone number must be 10 digits", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (fromComboBox.getSelectedIndex() == 0 || toComboBox.getSelectedIndex() == 0) {//Checks selection of combo boxes
+            JOptionPane.showMessageDialog(rootPane, "From OR To not Selected", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
 
             /**
-             * 
-             * 
+             *
+             * If the validation checks are cleared, getting the texts from
+             * textFields and storing them in the declared variables
+             *
+             */
+            name = nameTxtField.getText();
+
+            /**
+             *
+             *
              * String to concatenate phone number and phone pin
-             * 
+             *
              */
-            String phoneConcat=phonePinTxtField.getText()+phoneTxtField.getText();
-            contact=String.valueOf("+"+phoneConcat);
-            
-              /**
-               * 
-               * 
-               *  Code to get price of selected flight type
-               * 
-               */
-            if(onewayRadioBtn.isSelected()){
-                 flightDetail = "One Way";
-                 price = price + 400;
-            }else if (wholeTripRadioBtn.isSelected()){
-                 flightDetail = "Whole Trip";    
-                 price = price + 800;
-            }
-            
-             /**
-              * 
-              * 
-              * Code to get departure date and flightId 
-              * 
-              */
-             departureDate = departureTxtField.getText(); 
-             String id = departureDate.substring(0,departureDate.length() - 8);
+            String phoneConcat = phonePinTxtField.getText() + phoneTxtField.getText();
+            contact = String.valueOf("+" + phoneConcat);
 
-             /**
-              * 
-              * Setting values of from and to comboBox to declared strings
-              * 
-              */
-             from = (String) fromComboBox.getSelectedItem();
-             to = (String) toComboBox.getSelectedItem();
-             fromTo = from + "-" + to ;
-             
-             /**
-              * 
-              * 
-              * Setting the Price based on User's Destination
-              * 
-              */
-            if((from == "Nepal" && to=="India" )|| (from == "India" && to== "Nepal")){
-                price = price + 500;
-                flightId = "NI"+id;
-            } 
-            else if((from == "Nepal" && to=="China") || (from == "China" && to=="Nepal")){
-                price = price + 600;
-                flightId = "NC"+id;
-            } 
-            else if((from == "Nepal" && to=="Spain") || (from == "Spain" && to=="Nepal")){
-                price = price + 800;
-                flightId = "NS"+id;
-            } 
-            else if((from == "Nepal" && to=="Australia") || (from == "Australia" && to=="Nepal")){
-                price = price + 400;
-                flightId = "NA"+id;
-            } 
-            else if((from == "India" && to=="China") || (from == "China" && to=="India")){
-                price = price + 300;
-                flightId = "IC"+id;
-            } 
-            else if((from == "India" && to=="Spain") || (from == "Spain" && to=="India")){
-                price = price + 900;
-                flightId = "IS"+id;
-            } 
-            else if((from == "India" && to=="Australia") || (from == "Australia" && to=="India")){
-                price = price + 500;
-                flightId = "IA"+id;
-            } 
-            if((from == "China" && to=="Spain") || (from == "Spain" && to=="China")){
-                price = price + 700;
-                flightId = "CS"+id;
-            } 
-            else if((from == "China" && to=="Australia" || from == "Australia" && to=="China")){
-                price = price + 500;
-                flightId = "CA"+id;
-            } 
-            else if((from == "Spain" && to=="Australia" || from == "Australia" && to=="Spain")){
-                price = price + 1000;
-                flightId = "SA"+id;
-            }
-            
-            /** 
-             * 
-             * Code to get price of selected airline
-             * 
+            /**
+             *
+             *
+             * Code to get price of selected flight type
+             *
              */
-             airline = (String) airlineComboBox.getSelectedItem();
-         
-             if( airline == "Buddha Airs" ){
-                 price = price + 200;
-                 time = "10:00 A.M";
-                 flightId = flightId + "BA";
-            }else if( airline == "Qatar Airways" ){
-                 price = price + 300;
-                 time = "12:30 P.M";
-                 flightId = flightId + "QA";
-            }else if( airline == "Turkish Airlines" ){
-                 price = price + 400;
-                 time = "03:00 P.M";
-                 flightId = flightId + "TA";
-            }else if( airline == "Nepal Airlines" ){
-                 price = price + 200;
+            if (onewayRadioBtn.isSelected()) {
+                flightDetail = "One Way";
+                price = price + 400;
+            } else if (wholeTripRadioBtn.isSelected()) {
+                flightDetail = "Whole Trip";
+                price = price + 800;
+            }
+
+            /**
+             *
+             *
+             * Code to get departure date and flightId
+             *
+             */
+            departureDate = departureTxtField.getText();
+            String id = departureDate.substring(0, departureDate.length() - 8);
+
+            /**
+             *
+             * Setting values of from and to comboBox to declared strings
+             *
+             */
+            from = (String) fromComboBox.getSelectedItem();
+            to = (String) toComboBox.getSelectedItem();
+            fromTo = from + "-" + to;
+
+            /**
+             *
+             *
+             * Setting the Price based on User's Destination
+             *
+             */
+            if ((from == "Nepal" && to == "India") || (from == "India" && to == "Nepal")) {
+                price = price + 500;
+                flightId = "NI" + id;
+            } else if ((from == "Nepal" && to == "China") || (from == "China" && to == "Nepal")) {
+                price = price + 600;
+                flightId = "NC" + id;
+            } else if ((from == "Nepal" && to == "Spain") || (from == "Spain" && to == "Nepal")) {
+                price = price + 800;
+                flightId = "NS" + id;
+            } else if ((from == "Nepal" && to == "Australia") || (from == "Australia" && to == "Nepal")) {
+                price = price + 400;
+                flightId = "NA" + id;
+            } else if ((from == "India" && to == "China") || (from == "China" && to == "India")) {
+                price = price + 300;
+                flightId = "IC" + id;
+            } else if ((from == "India" && to == "Spain") || (from == "Spain" && to == "India")) {
+                price = price + 900;
+                flightId = "IS" + id;
+            } else if ((from == "India" && to == "Australia") || (from == "Australia" && to == "India")) {
+                price = price + 500;
+                flightId = "IA" + id;
+            }
+            if ((from == "China" && to == "Spain") || (from == "Spain" && to == "China")) {
+                price = price + 700;
+                flightId = "CS" + id;
+            } else if ((from == "China" && to == "Australia" || from == "Australia" && to == "China")) {
+                price = price + 500;
+                flightId = "CA" + id;
+            } else if ((from == "Spain" && to == "Australia" || from == "Australia" && to == "Spain")) {
+                price = price + 1000;
+                flightId = "SA" + id;
+            }
+
+            /**
+             *
+             * Code to get price of selected airline
+             *
+             */
+            airline = (String) airlineComboBox.getSelectedItem();
+
+            if (airline == "Buddha Airs") {
+                price = price + 200;
+                time = "10:00 A.M";
+                flightId = flightId + "BA";
+            } else if (airline == "Qatar Airways") {
+                price = price + 300;
+                time = "12:30 P.M";
+                flightId = flightId + "QA";
+            } else if (airline == "Turkish Airlines") {
+                price = price + 400;
+                time = "03:00 P.M";
+                flightId = flightId + "TA";
+            } else if (airline == "Nepal Airlines") {
+                price = price + 200;
                 time = "05:30 P.M";
                 flightId = flightId + "NA";
-            }else if( airline == "Himalaya Airlines" ){
-                 price = price + 400;
+            } else if (airline == "Himalaya Airlines") {
+                price = price + 400;
                 time = "08:30 P.M";
-                 flightId = flightId + "HA";
-         }
-               /**
-                * 
-                * 
-                * code to get selected flight class
-                * 
-                */
-            if(firstClassRadioBtn.isSelected()){
-                 flightClass = "First Class ";
-                 price = price + 800;
-            }else if (economyRadioBtn.isSelected()){
-                 flightClass = "Economy";    
-                 price = price + 400;
+                flightId = flightId + "HA";
             }
-            
             /**
-             * 
-             * 
-             * Setting the final total price
-             * 
+             *
+             *
+             * code to get selected flight class
+             *
              */
-            int total=price;
-            priceTxtField.setText(Integer.toString(total));
-            
-            /**
-             * 
-             * 
-             * Checking if the user inserts duplicate data
-             * 
-             */
-            try{
-                for(int i=0;i<rowCount;i++){
-                    if((mainTbl.getValueAt(i, 0).equals(name)) && (mainTbl.getValueAt(i, 1).equals(contact)) && (mainTbl.getValueAt(i, 2).equals(flightDetail))
-                        && (mainTbl.getValueAt(i, 3).equals(fromTo)) && (mainTbl.getValueAt(i, 4).equals(departureDate)) && (mainTbl.getValueAt(i, 5).equals(airline))
-                        && (mainTbl.getValueAt(i, 6).equals(flightClass)) && (mainTbl.getValueAt(i, 7).equals(time)) && (mainTbl.getValueAt(i, 8).equals(flightId))){
-                             
-                             /**
-                              * 
-                              * 
-                              * Sets the Boolean to true if there is any duplicate data.
-                              * The whole data entered should be same!
-                              */
-                             duplicate=true;
-                             JOptionPane.showMessageDialog(rootPane, "Ticket Already Booked", "Message", JOptionPane.INFORMATION_MESSAGE);
+            if (firstClassRadioBtn.isSelected()) {
+                flightClass = "First Class ";
+                price = price + 800;
+            } else if (economyRadioBtn.isSelected()) {
+                flightClass = "Economy";
+                price = price + 400;
+            }
 
-                    }           
-                }                
+            /**
+             *
+             *
+             * Setting the final total price
+             *
+             */
+            int total = price;
+            priceTxtField.setText(Integer.toString(total));
+
+            /**
+             *
+             *
+             * Checking if the user inserts duplicate data
+             *
+             */
+            try {
+                for (int i = 0; i < rowCount; i++) {
+                    if ((mainTbl.getValueAt(i, 0).equals(name)) && (mainTbl.getValueAt(i, 1).equals(contact)) && (mainTbl.getValueAt(i, 2).equals(flightDetail))
+                            && (mainTbl.getValueAt(i, 3).equals(fromTo)) && (mainTbl.getValueAt(i, 4).equals(departureDate)) && (mainTbl.getValueAt(i, 5).equals(airline))
+                            && (mainTbl.getValueAt(i, 6).equals(flightClass)) && (mainTbl.getValueAt(i, 7).equals(time)) && (mainTbl.getValueAt(i, 8).equals(flightId))) {
+
+                        /**
+                         *
+                         *
+                         * Sets the Boolean to true if there is any duplicate
+                         * data. The whole data entered should be same!
+                         */
+                        duplicate = true;
+                        JOptionPane.showMessageDialog(rootPane, "Ticket Already Booked", "Message", JOptionPane.INFORMATION_MESSAGE);
+
+                    }
+                }
 
                 /**
-                 * 
-                 * 
+                 *
+                 *
                  * Gives Error Message if same destination is selected
-                 * 
+                 *
                  */
-                 if(from == to){
-                     JOptionPane.showMessageDialog(rootPane, "Same destination please select another", "Error", JOptionPane.ERROR_MESSAGE);
-                     fromComboBox.setSelectedIndex(0);
-                     toComboBox.setSelectedIndex(0);
-                  }else if(!duplicate) { //Adds to Table if duplicate Boolean is false
-                        String data[] = {name, contact, flightDetail, fromTo, departureDate, airline, flightClass, time, flightId, Integer.toString(total)};  
-                        //Getting the table's total number of columns and rows  
-                        DefaultTableModel model=(DefaultTableModel) mainTbl.getModel();
-                        model.addRow(new Object[1]);
-                        boolean empty = false;
-                        int nextRow = 0;
-                        String s;
-                         do{
-                            s=(String) mainTbl.getValueAt(nextRow, 0);
-                            if (s!=null && s.length()!=0){
+                if (from == to) {
+                    JOptionPane.showMessageDialog(rootPane, "Same destination please select another", "Error", JOptionPane.ERROR_MESSAGE);
+                    fromComboBox.setSelectedIndex(0);
+                    toComboBox.setSelectedIndex(0);
+                } else if (!duplicate) { //Adds to Table if duplicate Boolean is false
+                    String data[] = {name, contact, flightDetail, fromTo, departureDate, airline, flightClass, time, flightId, Integer.toString(total)};
+                    //Getting the table's total number of columns and rows  
+                    DefaultTableModel model = (DefaultTableModel) mainTbl.getModel();
+                    model.addRow(new Object[1]);
+                    boolean empty = false;
+                    int nextRow = 0;
+                    String s;
+                    do {
+                        s = (String) mainTbl.getValueAt(nextRow, 0);
+                        if (s != null && s.length() != 0) {
                             nextRow++;
-                            }
-                            else{
-                                empty = true;
-                            }   
-                         }
-                         while(!empty);                        
-                           
-                            for(int i=0; i<colCount;i++) {
-                                mainTbl.setValueAt(data[i], nextRow, i);
-                            }
-                            /**
-                             * 
-                             * 
-                             * Creating a instance of CSVCodes Class and
-                             * Adding the data to the CSV file
-                             * 
-                             */
-                            CSVCodes csvCodes=new CSVCodes();
-                            csvCodes.saveTicket(name, contact, flightDetail, fromTo, departureDate, airline, flightClass, time, flightId, total);
-                           
-                            /**
-                             * 
-                             * 
-                             * Setting boarding pass labels visible after booking
-                             * 
-                             */
-                            String seat = seatTxtField.getText();
-        
-                            bpNamelbl.setVisible(true);        
-                            bpNamedsplbl.setText(name);
-                            
-                            bpAirlinelbl.setVisible(true);
-                            bpAirlinelbl.setText(airline);
-
-                            bpFromlbl.setVisible(true);        
-                            bpFrmdpylbl.setText(from);
-
-                            bpTolbl.setVisible(true);        
-                            bpTodsplbl.setText(to);
-
-                            bpflightidlbl.setVisible(true);        
-                            bpFligtiddsplbl.setText(flightId);
-
-                            bpFlightdetaillbl.setVisible(true); 
-                            bpFlightdetaildsplbl.setText(flightDetail);
-
-                            bpClasslbl.setVisible(true);        
-                            bpClassdsplbl.setText(flightClass);
-
-                            bpdepdatelbl.setVisible(true);        
-                            bpdepdatedsplbl.setText(departureDate);
-
-                            bptimeseatlbl.setVisible(true);        
-                            bptimedsplbl.setText(time);
-
-                            bpseprator.setVisible(true);        
-                            bpSeatdsplbl.setText(seat);
-
-                            bpPricelbl.setVisible(true);
-                            bpPricedsplbl.setText(Integer.toString(total));
+                        } else {
+                            empty = true;
                         }
-            }catch(Exception ex){
+                    } while (!empty);
+
+                    for (int i = 0; i < colCount; i++) {
+                        mainTbl.setValueAt(data[i], nextRow, i);
+                    }
+                    /**
+                     *
+                     *
+                     * Creating a instance of CSVCodes Class and Adding the data
+                     * to the CSV file
+                     *
+                     */
+                    CSVCodes csvCodes = new CSVCodes();
+                    csvCodes.saveTicket(name, contact, flightDetail, fromTo, departureDate, airline, flightClass, time, flightId, total);
+
+                    /**
+                     *
+                     *
+                     * Setting boarding pass labels visible after booking
+                     *
+                     */
+                    String seat = seatTxtField.getText();
+
+                    bpNamelbl.setVisible(true);
+                    bpNamedsplbl.setText(name);
+
+                    bpAirlinelbl.setVisible(true);
+                    bpAirlinelbl.setText(airline);
+
+                    bpFromlbl.setVisible(true);
+                    bpFrmdpylbl.setText(from);
+
+                    bpTolbl.setVisible(true);
+                    bpTodsplbl.setText(to);
+
+                    bpflightidlbl.setVisible(true);
+                    bpFligtiddsplbl.setText(flightId);
+
+                    bpFlightdetaillbl.setVisible(true);
+                    bpFlightdetaildsplbl.setText(flightDetail);
+
+                    bpClasslbl.setVisible(true);
+                    bpClassdsplbl.setText(flightClass);
+
+                    bpdepdatelbl.setVisible(true);
+                    bpdepdatedsplbl.setText(departureDate);
+
+                    bptimeseatlbl.setVisible(true);
+                    bptimedsplbl.setText(time);
+
+                    bpseprator.setVisible(true);
+                    bpSeatdsplbl.setText(seat);
+
+                    bpPricelbl.setVisible(true);
+                    bpPricedsplbl.setText(Integer.toString(total));
+
+                    JOptionPane.showMessageDialog(rootPane, "Your Bill Has Been Printed", "Information", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } catch (Exception ex) {
                 ex.printStackTrace();
             }
         }
@@ -1103,34 +1163,36 @@ public class AirTicket extends javax.swing.JFrame {
 
     /*Consumes any letters type in age field
        And allows only numerals 
-    */
+     */
     private void ageTxtFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ageTxtFieldKeyTyped
         // TODO add your handling code here:
-        if(!Character.isDigit(evt.getKeyChar())){
+        if (!Character.isDigit(evt.getKeyChar())) {
             evt.consume();
         }
     }//GEN-LAST:event_ageTxtFieldKeyTyped
 
     private void phoneTxtFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_phoneTxtFieldKeyTyped
         // TODO add your handling code here:
-            if(!Character.isDigit(evt.getKeyChar())){
-                evt.consume();
+        if (!Character.isDigit(evt.getKeyChar())) {
+            evt.consume();
         }
     }//GEN-LAST:event_phoneTxtFieldKeyTyped
 
+
     /**
-     * 
-     * 
+     *
+     *
      * Methods to change colors of navigation bar
-     * 
+     *
      */
-    public void setColor(JPanel panel){
-        panel.setBackground(new Color(247,84,95));
+    public void setColor(JPanel panel) {
+        panel.setBackground(new Color(247, 84, 95));
     }
-    public void resetColor(JPanel panel){
-        panel.setBackground(new Color(252,33,48));
+
+    public void resetColor(JPanel panel) {
+        panel.setBackground(new Color(252, 33, 48));
     }
-    
+
     private void exitPnlMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitPnlMouseClicked
         // TODO add your handling code here:
         System.exit(0);
@@ -1138,25 +1200,26 @@ public class AirTicket extends javax.swing.JFrame {
 
     private void adminLblPnlMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adminLblPnlMouseClicked
         // TODO add your handling code here:
-     
+
         //Checks if the selected panel is adminPanel or Not
-        if(!adminJPanel.isVisible()){
-               /**
-                * 
-                * Creating a new password field for JOption Pane 
-                * And Checking if the password entered is correct for admin tab
-                * 
-                */
-            JPasswordField passwordField=new JPasswordField();
-            int clickedOk=JOptionPane.showConfirmDialog(rootPane, passwordField, "Enter Password", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+        if (!adminJPanel.isVisible()) {
             /**
-             * 
-             * When User clicks OK, password should match as 'admin' 
-             * Sets Tickets JPanel Visibility to false and display Admin JPanel if the password matches 
-             * 
-             */        
-            if(clickedOk==JOptionPane.OK_OPTION){
-              if(passwordField.getText().equalsIgnoreCase("admin")){
+             *
+             * Creating a new password field for JOption Pane And Checking if
+             * the password entered is correct for admin tab
+             *
+             */
+            JPasswordField passwordField = new JPasswordField();
+            int clickedOk = JOptionPane.showConfirmDialog(rootPane, passwordField, "Enter Password", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+            /**
+             *
+             * When User clicks OK, password should match as 'admin' Sets
+             * Tickets JPanel Visibility to false and display Admin JPanel if
+             * the password matches
+             *
+             */
+            if (clickedOk == JOptionPane.OK_OPTION) {
+                if (passwordField.getText().equalsIgnoreCase("admin")) {
                     ticketsJPanel.setVisible(false);
                     mainJPanel.removeAll();
                     mainJPanel.revalidate();
@@ -1167,21 +1230,20 @@ public class AirTicket extends javax.swing.JFrame {
                     setColor(adminLblPnl);
                     resetColor(ticketsLabelPnl);
                     resetColor(exitPnl);
-              }else{
-                JOptionPane.showMessageDialog(rootPane, "Only admin knows the password", "Wrong Password", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Only admin knows the password", "Wrong Password", JOptionPane.ERROR_MESSAGE);
+                }
             }
-         }
-        }else{
+        } else {
             System.out.println("Admin Visible");
         }
-        
-    
-        
+
+
     }//GEN-LAST:event_adminLblPnlMouseClicked
 
     private void ticketsLabelPnlMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ticketsLabelPnlMouseClicked
         // TODO add your handling code here:
-        if(!ticketsJPanel.isVisible()){
+        if (!ticketsJPanel.isVisible()) {
             adminJPanel.setVisible(false);
             mainJPanel.removeAll();
             mainJPanel.revalidate();
@@ -1191,9 +1253,9 @@ public class AirTicket extends javax.swing.JFrame {
             mainJPanel.repaint();
             setColor(ticketsLabelPnl);
             resetColor(adminLblPnl);
-            resetColor(exitPnl);           
-        }else{            
-             System.out.println("Already Ticket");
+            resetColor(exitPnl);
+        } else {
+            System.out.println("Already Ticket");
         }
     }//GEN-LAST:event_ticketsLabelPnlMouseClicked
 
@@ -1201,46 +1263,187 @@ public class AirTicket extends javax.swing.JFrame {
     //Opens the required CSV file
     private void openmiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openmiActionPerformed
         // TODO add your handling code here:
-        JFileChooser fileChooser=new JFileChooser();
-        int i=fileChooser.showOpenDialog(AirTicket.this);
+        JFileChooser fileChooser = new JFileChooser();
+        int i = fileChooser.showOpenDialog(AirTicket.this);
         //If Open button is Clicked
-        if(i==JFileChooser.APPROVE_OPTION){            
-            try{
+        if (i == JFileChooser.APPROVE_OPTION) {
+            try {
                 //readCSV method from CSVCodes Class to choose file and populate JTable
-                CSVCodes.readCSV(fileChooser.getSelectedFile(),adminTable);
-            }catch(Exception exp){
+                CSVCodes.readCSV(fileChooser.getSelectedFile(), adminTable);
+            } catch (Exception exp) {
                 exp.printStackTrace();
-                JOptionPane.showMessageDialog(rootPane, "File not CSV Format", "ERROR",JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(rootPane, "File not CSV Format", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_openmiActionPerformed
 
     private void helpMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_helpMenuMouseClicked
         // TODO add your handling code here:
-      
+        
+
     }//GEN-LAST:event_helpMenuMouseClicked
 
     private void infoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_infoBtnActionPerformed
         // TODO add your handling code here:
-        try{
-            File myFile=new File("src/resources/getInformation.pdf");
+        try {
+            File myFile = new File("src/resources/getInformation.pdf");
             Desktop.getDesktop().open(myFile);
-        }catch(Exception exp){
+        } catch (Exception exp) {
             exp.printStackTrace();
         }
     }//GEN-LAST:event_infoBtnActionPerformed
 
     /**
-     * 
-     * Method to display current time to the user
-     * 
+     *
+     *
+     * Method for Search Button in Admin Panel
+     *
      */
-    public void time(){
-        Date date=new Date();
-        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("HH:mm:ss");
+    private void searchBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtn1ActionPerformed
+        // TODO add your handling code here:
+        try {
+            //Stores input of Search Text Field
+            int searchValue = Integer.parseInt(searchTxtField.getText());
+
+            /**
+             *
+             * Creating a new Linked List And, adding all prices from admin
+             * JTable to the Linked List
+             *
+             */
+            LinkedList<Integer> newArray = new LinkedList<Integer>();
+            for (int j = 0; j < adminTable.getRowCount(); j++) {
+                newArray.add(Integer.parseInt((String) adminTable.getValueAt(j, 9)));
+            }
+            /**
+             *
+             * Creating a new instance of Sort Class And Sorting out our Linked
+             * List
+             *
+             */
+
+            Sort sortClass = new Sort();
+            sortClass.sort(newArray);
+
+            /**
+             *
+             * Using Binary Search Method from Binary Search Class on our sorted
+             * Linked List
+             *
+             */
+            int low = 0;
+            int high = newArray.size() - 1;
+            BinarySearch binarySearchClass = new BinarySearch();
+            int val = binarySearchClass.binarySearch(newArray, low, high, searchValue);
+            if (val != -1) {
+                for (int i = 0; i < adminTable.getRowCount(); i++) {
+                    if (Integer.parseInt((String) adminTable.getValueAt(i, 9)) == searchValue) {
+                        JOptionPane.showMessageDialog(rootPane, "Name: " + adminTable.getValueAt(i, 0) + "\n Flight Detail: " + adminTable.getValueAt(i, 2) + "\n Airlines: " + adminTable.getValueAt(i, 5) + "\n Price: " + adminTable.getValueAt(i, 9), "Search", JOptionPane.PLAIN_MESSAGE);
+                        String[] data = {(String) adminTable.getValueAt(i, 0), (String) adminTable.getValueAt(i, 1), (String) adminTable.getValueAt(i, 2), (String) adminTable.getValueAt(i, 3), (String) adminTable.getValueAt(i, 4), (String) adminTable.getValueAt(i, 5), (String) adminTable.getValueAt(i, 6), (String) adminTable.getValueAt(i, 7), (String) adminTable.getValueAt(i, 8), (String) adminTable.getValueAt(i, 9)};
+                        DefaultTableModel model = (DefaultTableModel) searchtbl.getModel();
+                        model.addRow(data);
+                        break;
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "No such Data Found With the given Price", "Information", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (Exception exp) {
+            JOptionPane.showMessageDialog(rootPane, "Input Error", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_searchBtn1ActionPerformed
+
+    /**
+     *
+     *
+     * Method to display data from admin table when searched from combo box And,
+     * Display the selected data to search table
+     *
+     * @param evt
+     */
+    private void searchcbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchcbActionPerformed
+        // TODO add your handling code here:
+        try {
+            String toSearch = (String) searchcb.getSelectedItem();
+            int row = adminTable.getRowCount();
+            LinkedList<Search> dataList = new LinkedList();
+            for (int i = 0; i < row; i++) {
+                String Airline = (String) adminTable.getValueAt(i, 5);
+                if (toSearch.equals(Airline)) {
+                    String name = (String) adminTable.getValueAt(i, 0);
+                    String contact = (String) adminTable.getValueAt(i, 1);
+                    String flightdetail = (String) adminTable.getValueAt(i, 2);
+                    String fromTo = (String) adminTable.getValueAt(i, 3);
+                    String departuredate = (String) adminTable.getValueAt(i, 4);
+                    String Class = (String) adminTable.getValueAt(i, 6);
+                    String time = (String) adminTable.getValueAt(i, 7);
+                    String Flightid = (String) adminTable.getValueAt(i, 8);
+                    String price = (String) adminTable.getValueAt(i, 9);
+
+                    String data[] = {name, contact, flightdetail, fromTo, departuredate, Airline, Class, time, Flightid, price};
+                    DefaultTableModel model = (DefaultTableModel) searchtbl.getModel();
+                    model.addRow(data);
+                } 
+                for (Search m : dataList) {
+                    JOptionPane.showMessageDialog(rootPane, "Your data has found for Airline: " + m.getAirline() + ", Name:" + m.getName());
+                }
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(rootPane, "Not Found", "Information", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_searchcbActionPerformed
+
+    /**
+     * 
+     * 
+     * Method to Check for digit in Name Text Field
+     *
+     */
+    private void nameTxtFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameTxtFieldKeyTyped
+        // TODO add your handling code here:
+         if (Character.isDigit(evt.getKeyChar())) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_nameTxtFieldKeyTyped
+
+    private void searchTxtFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchTxtFieldKeyTyped
+        // TODO add your handling code here:
+        //Checking for letter in search text field
+         if (!Character.isDigit(evt.getKeyChar())) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_searchTxtFieldKeyTyped
+
+    private void clearBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearBtn1ActionPerformed
+        // TODO add your handling code here:
+       
+        int rowCount = searchtbl.getRowCount();
+        int colCount = searchtbl.getColumnCount();
+          for(int j=0; j<rowCount;j++) {
+               for(int i=0; i<colCount;i++) {
+                    searchtbl.setValueAt(null, j, i);   
+            }                    
+        }
+        for(int i=0;i<rowCount;i++){
+            DefaultTableModel model=(DefaultTableModel)searchtbl.getModel();                    
+            model.removeRow(0);   
+        }  
+    }//GEN-LAST:event_clearBtn1ActionPerformed
+
+    /**
+     *
+     * Method to display current time to the user
+     *
+     */
+    public void time() {
+        Date date = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
         //formats the current date and time according to the given format
-        currentTimeLbl.setText("Current Time: "+simpleDateFormat.format(date));        
+        currentTimeLbl.setText("Current Time: " + simpleDateFormat.format(date));
     }
+
     /**
      * @param args the command line arguments
      */
@@ -1264,7 +1467,7 @@ public class AirTicket extends javax.swing.JFrame {
         } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(AirTicket.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-         
+
         }
         //</editor-fold>
 
@@ -1339,6 +1542,7 @@ public class AirTicket extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JPopupMenu.Separator jSeparator11;
@@ -1354,7 +1558,9 @@ public class AirTicket extends javax.swing.JFrame {
     private javax.swing.JTextField priceTxtField;
     private javax.swing.JLabel pricelbl;
     private javax.swing.JButton searchBtn1;
-    private javax.swing.JTextField searchtxtfld1;
+    private javax.swing.JTextField searchTxtField;
+    private javax.swing.JComboBox<String> searchcb;
+    private javax.swing.JTable searchtbl;
     private javax.swing.JTextField seatTxtField;
     private javax.swing.JLabel seatlbl;
     private javax.swing.JLabel ticketlbl;
